@@ -1,19 +1,21 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <title>JS + CSS Clock</title>
 </head>
+
 <body>
 
 
-    <div class="clock">
-      <div class="clock-face">
-        <div class="hand hour-hand"></div>
-        <div class="hand min-hand"></div>
-        <div class="hand second-hand"></div>
-      </div>
+  <div class="clock">
+    <div class="clock-face">
+      <div class="hand hour-hand"></div>
+      <div class="hand min-hand"></div>
+      <div class="hand second-hand"></div>
     </div>
+  </div>
 
 
   <style>
@@ -43,17 +45,18 @@
       position: relative;
       padding: 2rem;
       box-shadow:
-        0 0 0 4px rgba(0,0,0,0.1),
+        0 0 0 4px rgba(0, 0, 0, 0.1),
         inset 0 0 0 3px #EFEFEF,
         inset 0 0 10px black,
-        0 0 10px rgba(0,0,0,0.2);
+        0 0 10px rgba(0, 0, 0, 0.2);
     }
 
     .clock-face {
       position: relative;
       width: 100%;
       height: 100%;
-      transform: translateY(-3px); /* account for the height of the clock hands */
+      transform: translateY(-3px);
+      /* account for the height of the clock hands */
     }
 
     .hand {
@@ -62,13 +65,33 @@
       background: black;
       position: absolute;
       top: 50%;
+      transform-origin: 100%;
+      transform: rotate(90deg);
+      transition: all 0.05s cubic-bezier(0, 3.82, 0.25, 1);
+      ;
     }
-
   </style>
 
   <script>
+    function setDate() {
+      const now = new Date()
+      let secs = document.querySelector('.second-hand');
+      let min = document.querySelector('.min-hand');
+      let hour = document.querySelector('.hour-hand');
 
+      let secDeg = ((6 * now.getSeconds()) + 90)
+      secDeg = secDeg === 0 ? (6 * now.getSeconds()) : secDeg;
+      let minDeg = ((6 * now.getMinutes()) + 90)
+      minDeg = minDeg === 0 ? (6 * now.getSeconds()) : minDeg;
+      let hours = now.getHours() > 12 ? now.getHours() - 12 : now.getHours()
+      let hourDeg = (30 * hours + 90)
+      secs.style.transform = `rotate(${secDeg}deg)`;
+      min.style.transform = `rotate(${minDeg}deg)`;
+      hour.style.transform = `rotate(${hourDeg}deg)`;
+    }
+    setInterval(setDate, 1000)
 
   </script>
 </body>
+
 </html>
