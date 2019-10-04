@@ -81,10 +81,14 @@
 
       let secDeg = ((6 * now.getSeconds()) + 90)
       secDeg = secDeg === 0 ? (6 * now.getSeconds()) : secDeg;
+
       let minDeg = ((6 * now.getMinutes()) + 90)
       minDeg = minDeg === 0 ? (6 * now.getSeconds()) : minDeg;
+
       let hours = now.getHours() > 12 ? now.getHours() - 12 : now.getHours()
       let hourDeg = (30 * hours + 90)
+
+
       secs.style.transform = `rotate(${secDeg}deg)`;
       min.style.transform = `rotate(${minDeg}deg)`;
       hour.style.transform = `rotate(${hourDeg}deg)`;
